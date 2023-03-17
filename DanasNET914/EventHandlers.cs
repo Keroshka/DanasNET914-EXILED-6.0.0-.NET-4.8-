@@ -27,20 +27,51 @@ namespace DanasNET914
 
         public void OnItemUpgrade(UpgradingInventoryItemEventArgs ev)
         {
-            if (ev.Item.Type == ItemType.Radio && ev.KnobSetting == Scp914.Scp914KnobSetting.Coarse && plugin.rng.Next(100) <= 50)
+            //if (ev.Item.Type == ItemType.Radio && ev.KnobSetting == Scp914.Scp914KnobSetting.Coarse && plugin.rng.Next(100) <= 50)
+            //{
+            //    ev.IsAllowed = false;
+            //    ev.Player.RemoveItem(ev.Item);
+            //    ev.Player.AddItem(ItemType.SCP1576);
+            //}
+
+            if (Recipes914.RecipeList != null && Recipes914.RecipeList.ContainsKey(ev.KnobSetting))
             {
-                ev.IsAllowed = false;
-                ev.Player.RemoveItem(ev.Item);
-                ev.Player.AddItem(ItemType.SCP1576);
+                foreach (var sourceItem in Recipes914.RecipeList[ev.KnobSetting])
+                {
+                    if (sourceItem.OldItem != ev.Item.Type) continue;
+
+                    if (plugin.rng.Next(100) <= sourceItem.Chance)
+                    {
+                        ev.IsAllowed = false;
+                        ev.Player.RemoveItem(ev.Item);
+                        if (sourceItem.NewItem != ItemType.None) ev.Player.AddItem(sourceItem.NewItem);
+                        break;
+                    }
+                }
             }
         }
 
         public void OnPickupUpgrade(UpgradingPickupEventArgs ev)
         {
-            if (ev.Pickup.Type == ItemType.Radio && ev.KnobSetting == Scp914.Scp914KnobSetting.Coarse && plugin.rng.Next(100) <= 50)
+            //if (ev.Pickup.Type == ItemType.Radio && ev.KnobSetting == Scp914.Scp914KnobSetting.Coarse && plugin.rng.Next(100) <= 50)
+            //{
+            //    ev.IsAllowed = false;
+            //    UpgradeItem(ev.Pickup, ItemType.SCP1576, ev.OutputPosition);
+            //}
+
+            if (Recipes914.RecipeList != null && Recipes914.RecipeList.ContainsKey(ev.KnobSetting))
             {
-                ev.IsAllowed = false;
-                UpgradeItem(ev.Pickup, ItemType.SCP1576, ev.OutputPosition);
+                foreach (var sourceItem in Recipes914.RecipeList[ev.KnobSetting])
+                {
+                    if (sourceItem.OldItem != ev.Pickup.Type) continue;
+
+                    if (plugin.rng.Next(100) <= sourceItem.Chance)
+                    {
+                        ev.IsAllowed = false;
+                        UpgradeItem(ev.Pickup, sourceItem.NewItem, ev.OutputPosition);
+                        break;
+                    }
+                }
             }
         }
 
@@ -54,7 +85,6 @@ namespace DanasNET914
 
                 item.CreatePickup(pos);
             }
-
             oldItem.Destroy();
         }
     }
