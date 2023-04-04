@@ -23,15 +23,15 @@ namespace DanasNET914
         {
             EventHandler = new EventHandlers(Instance);
 
-            Exiled.Events.Handlers.Scp914.UpgradingInventoryItem += EventHandler.OnItemUpgradeNew;
-            Exiled.Events.Handlers.Scp914.UpgradingPickup += EventHandler.OnPickupUpgradeNew;
+            Exiled.Events.Handlers.Scp914.UpgradingInventoryItem += EventHandler.OnItemUpgrade;
+            Exiled.Events.Handlers.Scp914.UpgradingPickup += EventHandler.OnPickupUpgrade;
             base.OnEnabled();
         }
 
         public override void OnDisabled()
         {
-            Exiled.Events.Handlers.Scp914.UpgradingInventoryItem -= EventHandler.OnItemUpgradeNew;
-            Exiled.Events.Handlers.Scp914.UpgradingPickup -= EventHandler.OnPickupUpgradeNew;
+            Exiled.Events.Handlers.Scp914.UpgradingInventoryItem -= EventHandler.OnItemUpgrade;
+            Exiled.Events.Handlers.Scp914.UpgradingPickup -= EventHandler.OnPickupUpgrade;
 
             EventHandler = null;
             Instance = null;

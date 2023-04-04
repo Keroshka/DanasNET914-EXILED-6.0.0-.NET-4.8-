@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace DanasNET914
 {
-    public class Recipes914New
+    public class SCP914Recipes
     {
-        public static List<SCP914RecipeNew> Recipes { get; set; } = new List<SCP914RecipeNew>
+        public static List<SCP914Recipe> Recipes { get; set; } = new List<SCP914Recipe>
         {
-            new SCP914RecipeNew(Scp914.Scp914KnobSetting.Coarse, 100, ItemType.Radio, new Dictionary<ItemType, int>()
+            new SCP914Recipe(Scp914.Scp914KnobSetting.Coarse, 100, ItemType.Radio, new Dictionary<ItemType, int>()
             {
                 {ItemType.SCP1576, 1},
                 {ItemType.None, 1}
             }),
-            new SCP914RecipeNew(Scp914.Scp914KnobSetting.Fine, 100, ItemType.Coin, new Dictionary<ItemType, int>()
+            new SCP914Recipe(Scp914.Scp914KnobSetting.Fine, 100, ItemType.Coin, new Dictionary<ItemType, int>()
             {
                 {ItemType.GrenadeFlash, 1},
                 {ItemType.GrenadeHE, 1},
@@ -24,7 +24,7 @@ namespace DanasNET914
                 {ItemType.GunCOM15, 1},
                 {ItemType.Medkit, 1}
             }),
-            new SCP914RecipeNew(Scp914.Scp914KnobSetting.VeryFine, 100, ItemType.Coin, new Dictionary<ItemType, int>()
+            new SCP914Recipe(Scp914.Scp914KnobSetting.VeryFine, 100, ItemType.Coin, new Dictionary<ItemType, int>()
             {
                 {ItemType.Jailbird, 1},
                 {ItemType.GunCom45, 1},
@@ -40,9 +40,9 @@ namespace DanasNET914
             })
         };
 
-        public static SCP914RecipeNew GetItemPool(Scp914.Scp914KnobSetting setting, ItemType oldItem)
+        public static SCP914Recipe GetItemPool(Scp914.Scp914KnobSetting setting, ItemType oldItem)
         {
-            foreach (SCP914RecipeNew recipe in Recipes)
+            foreach (SCP914Recipe recipe in Recipes)
             {
                 if (recipe.OldItem == oldItem && recipe.KnobSetting == setting) return recipe;
             }
